@@ -1,0 +1,16 @@
+.add-form{
+    margin: 5vh;
+    padding: 2vh;
+    border: 2px;
+    border-radius: 1%;
+    background-color: #4b464a6c;
+    border-color: rgb(8, 8, 8);
+    border-style: double;
+    font-family: 'Solway', serif;
+} 
+add.button-top{
+    margin:5vh
+}
+.feito{
+    text-decoration: line-through;
+}

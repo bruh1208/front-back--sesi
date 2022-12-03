@@ -1,9 +1,64 @@
 ﻿@page "/"
 
-<PageTitle>Index</PageTitle>
+<PageTitle> To Do List; </PageTitle>
+<div class="add-form">
 
-<h1>Hello, world!</h1>
 
-Welcome to your new app.
+<BSLabel> To Do List; </BSLabel>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+<BSInput @bind-Value= 'description'
+placeholder= "Escreva o seu item a fazer:"
+ InputType="InputType.TextArea" />
+
+ <BSLabel> Para: </BSLabel>
+
+ <BSInput
+
+ InputType="InputType.DateTimeLocal" 
+ Value="@DateTime.Now"/>
+
+<div class="add-button">
+
+<BSButton Color="BSColor.Success" @onclick= "onAdd">Começar</BSButton>
+</div>
+
+</div>
+
+<div>
+    
+<BSAccordion>
+    @foreach ( var todo  in list )
+{
+    <BSAccordionItem>
+        <Header>@todo.Descricao</Header>
+        <Content>
+             <BSInputCheckbox @bind-Value="todo.feito" class="Feito" />
+               <BSLabel>   ESTÁ FEITO </BSLabel> 
+               <br/>
+               <BSLabel>
+                Tempo Restante: @((todo.Prazo - DateTime.Now).TotalMinutes.ToString("0"))min
+               </BSLabel>
+        </Content>
+    </BSAccordionItem>
+}
+</BSAccordion>
+</div>
+
+@code {
+    List<ToDoElement> list = new List<ToDoElement>();
+
+        string description = "";
+        DateTime deadline = DateTime.Now;
+
+        public void onAdd(){
+            ToDoElement  element= new ToDoElement ();
+            element.Descricao = description ;
+element.Prazo = deadline;
+element.feito = false;
+list.Add(element);
+
+description = "";
+deadline = DateTime.Now;
+StateHasChanged();
+        }
+        }
